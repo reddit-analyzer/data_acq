@@ -2,12 +2,13 @@ import praw
 import time
 from thread_getter import *
 from comment_getter import *
+
 def submissionData(subreddit_name = 'aww'):
     r = praw.Reddit(user_agent='blah')
     if subreddit_name == "fp":
         submissions = r.get_front_page()
     else:
-        submissions = r.get_subreddit(subreddit_name).get_hot()
+        submissions = r.get_subreddit(subreddit_name).get_hot(limit = 3)
 
 
     now_time = time.strftime('%Y-%m-%d %H:%M:%S %Z', time.localtime())

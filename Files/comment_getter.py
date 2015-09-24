@@ -33,9 +33,12 @@ def commentData(comments_list, now_time, subreddit_name = 'aww'):
                 comment_gilds = comment_object.gilded
                 #comment_epoch_time = comment_object.created
                 comment_created = time.strftime('%Y-%m-%d %H:%M:%S %Z', time.localtime(comment_object.created))
-                edited = comment_object.edited
+                edited = str(comment_object.edited)
+                if edited != "False":
+                    edited = "True"
                 comment_position = position
                 length_comment = len(cleaned_comment)
+                num_replies = len(comment_object.replies)
                 comment_data.append([unicode(front_page),
                              thread_id,
                              comment_id,
@@ -45,6 +48,7 @@ def commentData(comments_list, now_time, subreddit_name = 'aww'):
                              cleaned_comment,
                              unicode(comment_position),
                              unicode(length_comment),
+                             unicode(num_replies),
                              unicode(edited),
                              unicode(comment_gilds),
                              comment_created,
