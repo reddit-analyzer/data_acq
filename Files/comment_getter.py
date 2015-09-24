@@ -1,4 +1,3 @@
-__author__ = 'vincentpham'
 import praw
 import time
 import re
@@ -6,18 +5,15 @@ from bs4 import BeautifulSoup
 from thread_getter import csvSave
 
 #Comments data
-def commentData(subreddit_name = "aww", limit = 25):
-    praw_reddit = praw.Reddit(user_agent='blah')
-    if subreddit_name == "front page":
+def commentData(comments_list, now_time, subreddit_name = 'aww'):
+    str_time = time.strftime('%m%d%y_%I%p', time.localtime())
+    output_name = subreddit_name + "_comment_" + str_time + ".csv"
+    if subreddit_name == "fp":
         front_page = 1
-        submissions = praw_reddit.get_front_page(limit = limit)
     else:
         front_page = 0
-        submissions = praw_reddit.get_subreddit(subreddit_name).get_hot(limit=limit)
-    comments_list = [x.comments for x in submissions]
-    now_time = time.strftime('%Y-%m-%d %H:%M:%S %Z', time.localtime())
-
-    rows = []
+    now_time = now_time
+    comment_data = []
 
     counter = 1
     for thread_comments in comments_list:
@@ -40,7 +36,7 @@ def commentData(subreddit_name = "aww", limit = 25):
                 edited = comment_object.edited
                 comment_position = position
                 length_comment = len(cleaned_comment)
-                rows.append([unicode(front_page)
+                comment_data.append([unicode(front_page),
                              thread_id,
                              comment_id,
                              comment_usr,
@@ -57,7 +53,8 @@ def commentData(subreddit_name = "aww", limit = 25):
                 pass
             position += 1
         counter += 1
-    return rows
+    csvSave(comment_data, output_name)
+    return comment_data
 
 def clean_html(html_text):
     new_html = html_text
@@ -75,6 +72,6 @@ def clean_html(html_text):
     originaltext = re.sub(pattern, "", cleantext).strip()
     return originaltext
 
-lists = commentData(subreddit_name = "nottheonion", limit = 25)
-csvSave(lists, "nottheonion_comment_092315_10PM")
+#lists = commentData(subreddit_name = "nottheonion", limit = 25)
+#csvSave(lists, "nottheonion_comment_092315_10PM")
 

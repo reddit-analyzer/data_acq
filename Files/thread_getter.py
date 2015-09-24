@@ -3,18 +3,17 @@ import time
 import csv
 import re
 
-def threadData(subreddit_name = 'aww', limit = 25, output_name = "worldnews_092315_908PM.csv"):
+def threadData(list_items, now_time, subreddit_name = 'aww'):
     #subreddit = r.get_subreddit(subreddit_name)
-    r = praw.Reddit(user_agent='blah')
-    if subreddit_name == "front page":
+    str_time = time.strftime('%m%d%y_%I%p', time.localtime())
+    output_name = subreddit_name + "_thread_" + str_time + ".csv"
+    if subreddit_name == "fp":
         front_page = 1
-        submissions = r.get_front_page(limit = limit)
     else:
         front_page = 0
-        submissions = r.get_subreddit(subreddit_name).get_hot(limit = limit)
-    list_items = [item for item in submissions]
     thread_data = []
     ranking = 0
+    now_time = now_time
     for post in list_items:
         subreddit_name = post.subreddit._case_name
         reddit_usernames = post.author._case_name
@@ -26,7 +25,6 @@ def threadData(subreddit_name = 'aww', limit = 25, output_name = "worldnews_0923
         gilded_score = post.gilded
         post_score = post.score
         thread_ids = post.id #matched with comment's domain called _submission_id
-        now_time = time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())
         ranking += 1
         thread_data.append([unicode(front_page),
                             subreddit_name,
