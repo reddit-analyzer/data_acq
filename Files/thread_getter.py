@@ -13,6 +13,7 @@ def threadData(subreddit_name = 'aww', limit = 25, output_name = "testredditdata
     for post in list_items:
         subreddit_name = post.subreddit._case_name
         reddit_usernames = post.author._case_name
+        post_title = post.title
         total_num_comments = post.num_comments
         post_timestamp_tmp = post.created
         post_timestamp_final = time.strftime('%Y-%m-%d %H:%M:%S %Z', time.localtime(post_timestamp_tmp))
@@ -24,6 +25,7 @@ def threadData(subreddit_name = 'aww', limit = 25, output_name = "testredditdata
         ranking += 1
         thread_data.append([subreddit_name,
                             reddit_usernames,
+                            post_title,
                             thread_ids,
                             total_num_comments,
                             domains,
@@ -50,4 +52,4 @@ def csvSave(list_of_list, outfile):
     result_csv.close()
     return "Saved"
 
-test = threadData('aww')
+#test = threadData('aww')
