@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 import praw
 import time
 import csv
 import re
+=======
+__author__ = 'vincentpham'
+import praw
+import time
+
+>>>>>>> 1d0a2957910f479630465146050acfc2b876e927
 
 #Comments data
 r = praw.Reddit(user_agent='blah')
@@ -43,6 +50,7 @@ your_comment = s.comments[0]
 r = praw.Reddit(user_agent='blah')
 submissions = r.get_subreddit('aww').get_hot(limit=1)
 
+<<<<<<< HEAD
 subreddit_name = 'aww'
 def threadData(subreddit_name = 'aww', limit = 25):
     #subreddit = r.get_subreddit(subreddit_name)
@@ -147,6 +155,13 @@ for item in y:
         print item.id
     except:
         print "DELETED"
+=======
+
+y = [x.comments for x in submissions]
+
+for x in submissions:
+    y = x
+>>>>>>> 1d0a2957910f479630465146050acfc2b876e927
 
 author = y.author._case_name
 created = y.created
@@ -167,7 +182,10 @@ subreddit_id = y.subreddit_id
 title = y.title
 url = y.url
 
+<<<<<<< HEAD
 string_test = u'hello\nbye'
 
 # test = re.sub(r'<[^>]blockquote>*<[^>]/blockquote>','', str(string_test))
 test = re.sub(r'\n','', str(string_test))
+=======
+>>>>>>> 1d0a2957910f479630465146050acfc2b876e927
