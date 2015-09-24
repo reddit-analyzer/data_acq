@@ -3,7 +3,7 @@ import time
 import csv
 import re
 
-def threadData(subreddit_name = 'aww', limit = 25, output_name = "testredditdata.csv"):
+def threadData(subreddit_name = 'aww', limit = 25, output_name = "worldnews_092315_908PM.csv"):
     #subreddit = r.get_subreddit(subreddit_name)
     r = praw.Reddit(user_agent='blah')
     if subreddit_name == "front page":
@@ -30,11 +30,11 @@ def threadData(subreddit_name = 'aww', limit = 25, output_name = "testredditdata
                             reddit_usernames,
                             post_title,
                             thread_ids,
-                            total_num_comments,
+                            unicode(total_num_comments),
                             domains,
-                            gilded_score,
-                            post_score,
-                            ranking,
+                            unicode(gilded_score),
+                            unicode(post_score),
+                            unicode(ranking),
                             post_timestamp_final,
                             now_time])
     csvSave(thread_data, output_name)
@@ -51,8 +51,8 @@ def csvSave(list_of_list, outfile):
     result_csv = open(outfile, "w")
     content = csv.writer(result_csv)#, delimiter = ',', quoting = csv.QUOTE_NONE, quotechar = '', lineterminator='\r\n')
     for item in list_of_list:
+        item = [x.encode('utf8') for x in item]
         content.writerow(item)
     result_csv.close()
     return "Saved"
 
-#test = threadData('aww')
