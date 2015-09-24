@@ -14,7 +14,10 @@ def commentData(subreddit_name = "aww", limit = 25):
         submissions = praw_reddit.get_subreddit(subreddit_name).get_hot(limit=limit)
     comments_list = [x.comments for x in submissions]
     rows = []
+
+    counter = 1
     for thread_comments in comments_list:
+        print "subreddit: ", subreddit_name, "; counter: ", counter
         position = 1
         for comment_object in thread_comments:
             try:
@@ -41,6 +44,7 @@ def commentData(subreddit_name = "aww", limit = 25):
             except:
                 pass
             position += 1
+        counter += 1
     return rows
 
 def clean_html(html_text):
