@@ -6,7 +6,10 @@ import re
 def threadData(subreddit_name = 'aww', limit = 25, output_name = "testredditdata.csv"):
     #subreddit = r.get_subreddit(subreddit_name)
     r = praw.Reddit(user_agent='blah')
-    submissions =  r.get_subreddit(subreddit_name).get_hot(limit = limit)
+    if subreddit_name == "front page":
+        submissions = r.get_front_page(limit = limit)
+    else:
+        submissions = r.get_subreddit(subreddit_name).get_hot(limit = limit)
     list_items = [item for item in submissions]
     thread_data = []
     ranking = 0
