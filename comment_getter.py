@@ -3,6 +3,7 @@ import praw
 import time
 import re
 from bs4 import BeautifulSoup
+import thread_getter
 
 
 #Comments data
