@@ -7,8 +7,10 @@ def threadData(subreddit_name = 'aww', limit = 25, output_name = "worldnews_0923
     #subreddit = r.get_subreddit(subreddit_name)
     r = praw.Reddit(user_agent='blah')
     if subreddit_name == "front page":
+        front_page = 1
         submissions = r.get_front_page(limit = limit)
     else:
+        front_page = 0
         submissions = r.get_subreddit(subreddit_name).get_hot(limit = limit)
     list_items = [item for item in submissions]
     thread_data = []
@@ -26,7 +28,8 @@ def threadData(subreddit_name = 'aww', limit = 25, output_name = "worldnews_0923
         thread_ids = post.id #matched with comment's domain called _submission_id
         now_time = time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())
         ranking += 1
-        thread_data.append([subreddit_name,
+        thread_data.append([unicode(front_page),
+                            subreddit_name,
                             reddit_usernames,
                             post_title,
                             thread_ids,

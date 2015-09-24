@@ -3,15 +3,16 @@ import praw
 import time
 import re
 from bs4 import BeautifulSoup
-import thread_getter
-
+from thread_getter import csvSave
 
 #Comments data
 def commentData(subreddit_name = "aww", limit = 25):
     praw_reddit = praw.Reddit(user_agent='blah')
     if subreddit_name == "front page":
+        front_page = 1
         submissions = praw_reddit.get_front_page(limit = limit)
     else:
+        front_page = 0
         submissions = praw_reddit.get_subreddit(subreddit_name).get_hot(limit=limit)
     comments_list = [x.comments for x in submissions]
     now_time = time.strftime('%Y-%m-%d %H:%M:%S %Z', time.localtime())
@@ -39,7 +40,8 @@ def commentData(subreddit_name = "aww", limit = 25):
                 edited = comment_object.edited
                 comment_position = position
                 length_comment = len(cleaned_comment)
-                rows.append([thread_id,
+                rows.append([unicode(front_page)
+                             thread_id,
                              comment_id,
                              comment_usr,
                              usr_id,
@@ -73,6 +75,6 @@ def clean_html(html_text):
     originaltext = re.sub(pattern, "", cleantext).strip()
     return originaltext
 
-lists = commentData(subreddit_name = "front page", limit = 25)
-def csvSave(lists, "fp_comment_092315_10PM"):
+lists = commentData(subreddit_name = "nottheonion", limit = 25)
+csvSave(lists, "nottheonion_comment_092315_10PM")
 
