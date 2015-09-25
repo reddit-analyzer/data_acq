@@ -1,8 +1,25 @@
-import praw
 import time
 import re
-from bs4 import BeautifulSoup
-from thread_getter import csvSave
+
+#Logistics
+#Throw error if praw library not installed.
+try:
+    import praw
+except ImportError:
+    print "Praw library not found."
+
+#Throw error if bs4 and BeautifulSoup is not installed.
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    print "bs4 and BeautifulSoup library not found."
+
+#Throw error if thread_getter/comment_getter library not found.
+#Thread_getter and comment_getter must be in same directory as all_getter.
+try:
+    from thread_getter import csvSave
+except ImportError:
+    print "thread_getter.py not found or not in local directory."
 
 #Comments data
 def commentData(comments_list, now_time, subreddit_name):
