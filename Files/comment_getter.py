@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from thread_getter import csvSave
 
 #Comments data
-def commentData(comments_list, now_time, subreddit_name = 'aww'):
+def commentData(comments_list, now_time, subreddit_name):
     str_time = time.strftime('%m%d%y_%I%p', time.localtime())
     output_name = subreddit_name + "_comment_" + str_time + ".csv"
     if subreddit_name == "fp":

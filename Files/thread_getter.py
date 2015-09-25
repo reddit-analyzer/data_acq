@@ -1,10 +1,7 @@
-import praw
 import time
 import csv
-import re
 
-def threadData(list_items, now_time, subreddit_name = 'aww'):
-    #subreddit = r.get_subreddit(subreddit_name)
+def threadData(list_items, now_time, subreddit_name):
     str_time = time.strftime('%m%d%y_%I%p', time.localtime())
     output_name = subreddit_name + "_thread_" + str_time + ".csv"
     if subreddit_name == "fp":
@@ -12,12 +9,14 @@ def threadData(list_items, now_time, subreddit_name = 'aww'):
     else:
         front_page = 0
     thread_data = []
+
     ranking = 0
     now_time = now_time
     for post in list_items:
         subreddit_name = post.subreddit._case_name
         reddit_usernames = post.author._case_name
         post_title = post.title
+        post_text = post.selftext
         total_num_comments = post.num_comments
         post_timestamp_tmp = post.created
         post_timestamp_final = time.strftime('%Y-%m-%d %H:%M:%S %Z', time.localtime(post_timestamp_tmp))
@@ -25,11 +24,13 @@ def threadData(list_items, now_time, subreddit_name = 'aww'):
         gilded_score = post.gilded
         post_score = post.score
         thread_ids = post.id #matched with comment's domain called _submission_id
+        post_url = post.url
         ranking += 1
         thread_data.append([unicode(front_page),
                             subreddit_name,
                             reddit_usernames,
                             post_title,
+                            post_text,
                             thread_ids,
                             unicode(total_num_comments),
                             domains,
@@ -37,7 +38,8 @@ def threadData(list_items, now_time, subreddit_name = 'aww'):
                             unicode(post_score),
                             unicode(ranking),
                             post_timestamp_final,
-                            now_time])
+                            now_time,
+                            post_url])
     csvSave(thread_data, output_name)
     return thread_data
 
