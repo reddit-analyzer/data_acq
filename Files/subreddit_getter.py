@@ -9,10 +9,10 @@ def subredditData(subreddits_list = "all"):
     if subreddits_list == 1:
         chunks = ["fp", "worldnews", "aww"]
     elif subreddits_list == 2:
-        chunks = ["nottheonion", "television", "AnimalsBeingJerks"]
+        chunks = ["todayilearned", "mildlyinteresting", "Showerthoughts"]
     elif subreddits_list == "all":
         chunks = ["fp", "worldnews", "aww",
-                  "nottheonion", "television", "AnimalsBeingJerks"]
+                  "todayilearned", "mildlyinteresting", "Showerthoughts"]
     elif type(subreddits_list) == list:
         chunks = subreddits_list
     else:
