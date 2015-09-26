@@ -31,7 +31,7 @@ def submissionData(subreddit_name):
     if subreddit_name == "fp":
         submissions = r.get_front_page()
     else:
-        submissions = r.get_subreddit(subreddit_name).get_hot(limit = 2)
+        submissions = r.get_subreddit(subreddit_name).get_hot()
 
 
     now_time = time.strftime('%Y-%m-%d %H:%M:%S %Z', time.localtime())

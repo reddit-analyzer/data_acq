@@ -88,11 +88,9 @@ def clean_html(html_text):
         except:
             new_html = html_text
 
-    cleantext = BeautifulSoup(new_html).text
+    cleantext = BeautifulSoup(new_html, "html.parser").text
     pattern = "\n"
     originaltext = re.sub(pattern, "", cleantext).strip()
     return originaltext
 
-#lists = commentData(subreddit_name = "nottheonion", limit = 25)
-#csvSave(lists, "nottheonion_comment_092315_10PM")
 
