@@ -1,5 +1,7 @@
 #Logistics
 #Throw error if praw library not installed.
+import os
+
 try:
     import psycopg2
 except ImportError:
@@ -7,19 +9,25 @@ except ImportError:
 
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
-class database:
-    def __init__(self,thread_csv_filename, comments_csv_filename, database_name, table_name, password_string,
+class myDatabase:
+    def __init__(self,thread_csv_filename, comments_csv_filename, database_name, password_string,
                  schema_name, thread_tablename, comments_tablename, user_name, host_name):
         self.thread_csv_filename = thread_csv_filename
         self.comments_csv_filename = comments_csv_filename
         self.database_name = database_name
-        self.table_name = table_name
         self.password_string = password_string
         self.schema_name = schema_name
         self.thread_tablename = thread_tablename
         self.comments_tablename = comments_tablename
         self.user_name = user_name
         self.host_name = host_name
+
+    def changeDir(self, dir_of_files):
+        try:
+            os.chdir(dir_of_files)
+        except:
+            return "No such directory"
+        return
 
     def createDatabase(self):
         #create connection to highest level database and create a database
@@ -78,7 +86,7 @@ class database:
                     ,comment_position INT
                     ,length_comment INT
                     ,num_replies INT
-                    ,edited INT
+                    ,edited BOOLEAN
                     ,comment_gilds INT
                     ,comment_created TIMESTAMP
                     ,now_time TIMESTAMP);''')
@@ -89,12 +97,25 @@ class database:
     def copyTable(self):
         conn, cur = self.accessDatabase()
         #copy csv file to table
-        cur.execute('''COPY %s
-                    FROM '%s'
-                    DELIMITER ',' CSV;''' % (self.schema_name + "." + self.thread_tablename, self.thread_csv_filename))
-
-        cur.execute('''COPY %s
-                    FROM %s
-                    DELIMITER ',' CSV;''' % (self.schema_name + "." + self.comments_tablename, self.comments_csv_filename))
+        thread_path = str(os.path.join(os.getcwd(), self.thread_csv_filename))
+        comments_path = str(os.path.join(os.getcwd(), self.comments_csv_filename))
+        try:
+            cur.execute('''COPY %s
+                        FROM '%s'
+                        DELIMITER ',' CSV;''' % (self.schema_name + "." + self.thread_tablename, thread_path))
+            cur.execute('''COPY %s
+                        FROM '%s'
+                        DELIMITER ',' CSV;''' % (self.schema_name + "." + self.comments_tablename, comments_path))
+        except:
+            return "No such file or directory"
+        cur.execute('commit;')
         conn.close()
         return "Data copied"
+
+    def dropTable(self, tablename):
+        conn, cur = self.accessDatabase()
+        #drop table
+        cur.execute('''DROP TABLE %s;''' % tablename)
+        cur.execute('commit;')
+        conn.close()
+        return "Table dropped"
