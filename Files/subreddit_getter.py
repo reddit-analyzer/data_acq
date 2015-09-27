@@ -4,8 +4,13 @@ try:
 except ImportError:
     print "all_getter file not found."
 
+import os
 
-def subredditData(subreddits_list = "all"):
+def subredditData(subreddits_list = "all", save_dir = None, limit = 0):
+
+    if save_dir != None:
+        os.chdir(save_dir)
+
     if subreddits_list == 1:
         chunks = ["fp", "worldnews", "aww"]
     elif subreddits_list == 2:
@@ -20,8 +25,10 @@ def subredditData(subreddits_list = "all"):
         return
 
     for subreddit in chunks:
-        submissionData(subreddit)
+        submissionData(subreddit, limit = limit)
         print "finished " + subreddit
     print "ALL DONE!"
     return
 
+save_dir = "/Users/vincentpham/Google Drive/subreddit_got_files/test_folder"
+subredditData(2, save_dir)

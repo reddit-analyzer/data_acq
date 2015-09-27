@@ -12,7 +12,7 @@ except ImportError:
 
 def userData(list_items, subreddit_name):
     str_time = time.strftime('%m%d%y_%I%p', time.localtime())
-    output_name = subreddit_name + "_comment_" + str_time + ".csv"
+    output_name = subreddit_name + "_users_" + str_time + ".csv"
     r = praw.Reddit(user_agent='blah')
     user_data = []
     for post in list_items:
