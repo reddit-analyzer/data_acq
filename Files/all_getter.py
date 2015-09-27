@@ -26,12 +26,12 @@ except ImportError:
     print "comment_getter.py not found or not in local directory."
 
 
-def submissionData(subreddit_name):
+def submissionData(subreddit_name, limit = 0):
     r = praw.Reddit(user_agent='blah')
     if subreddit_name == "fp":
-        submissions = r.get_front_page()
+        submissions = r.get_front_page(limit = limit)
     else:
-        submissions = r.get_subreddit(subreddit_name).get_hot()
+        submissions = r.get_subreddit(subreddit_name).get_hot(limit = limit)
 
 
     now_time = time.strftime('%Y-%m-%d %H:%M:%S %Z', time.localtime())
