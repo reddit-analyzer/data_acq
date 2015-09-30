@@ -30,5 +30,5 @@ def subredditData(subreddits_list = "all", save_dir = None, limit = 0):
     print "ALL DONE!"
     return
 
-save_dir = "/Users/vincentpham/Google Drive/subreddit_got_files/test_folder"
-subredditData(2, save_dir)
+#save_dir = "/Users/vincentpham/Google Drive/subreddit_got_files/test_folder"
+subredditData("all")

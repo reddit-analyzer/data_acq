@@ -1,4 +1,4 @@
-import database
+from database import *
 
 def uploadData(full_thread_csvfilename, full_comments_csvfilename, database_name, password_string, schema_name,
                thread_tablename, comments_tablename, user_name, hostname):
