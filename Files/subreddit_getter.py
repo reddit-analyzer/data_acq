@@ -47,10 +47,6 @@ def subredditData(subreddits_list = "all", save_dir = None, limit = 0):
     print "ALL DONE!"
     return
 
-<<<<<<< HEAD
-#save_dir = "/Users/vincentpham/Google Drive/subreddit_got_files/test_folder"
-subredditData("all")
-=======
 def submissionData(subreddit_name, limit = 0):
     r = praw.Reddit(user_agent='blah')
     if subreddit_name == "fp":
@@ -77,4 +73,3 @@ def submissionData(subreddit_name, limit = 0):
 
 #save_dir = "/Users/vincentpham/Google Drive/subreddit_got_files/test_folder"
 #subredditData(2, save_dir)
->>>>>>> 241cd554e05e7d113d7b85f5a5934eb0963df6c6
