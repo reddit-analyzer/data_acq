@@ -33,15 +33,30 @@ class myDatabase:
         #create connection to highest level database and create a database
         conn = psycopg2.connect('user = %s host = %s password = %s' % (self.user_name, self.host_name, self.password_string))
         cur = conn.cursor()
+        cur.execute('SELECT datname FROM pg_catalog.pg_database;')
+        existing_db = cur.fetchall()
         conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-        cur.execute('''create database %s''' % self.database_name)
-        conn.close()
-        return "%s created!" % self.database_name
+        if self.database_name[0].isupper() == True:
+            new_db_name = self.database_name[:1].lower() + self.database_name[1:]
+        else:
+            new_db_name = self.database_name
+        try:
+            cur.execute('CREATE DATABASE %s' % new_db_name)
+            return "%s created!" % new_db_name
+        except:
+            print "Database already exists!"
+        finally:
+            conn.close()
 
     def accessDatabase(self):
         #access database
+        #make sure first letter of database name is lowercase by convention
+        if self.database_name[0].isupper() == True:
+            new_db_name = self.database_name[:1].lower() + self.database_name[1:]
+        else:
+            new_db_name = self.database_name
         conn = psycopg2.connect('dbname = %s user = %s host = %s password = %s'
-							% (self.database_name, self.user_name, self.host_name, self.password_string))
+							% (new_db_name, self.user_name, self.host_name, self.password_string))
         cur = conn.cursor()
         return conn, cur
 

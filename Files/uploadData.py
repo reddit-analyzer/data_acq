@@ -7,7 +7,6 @@ def uploadData(full_thread_csvfilename, full_comments_csvfilename, database_name
                       schema_name, thread_tablename, comments_tablename, user_name,
                       hostname)
 
-
     mydatabase.createDatabase()
     mydatabase.createSchema()
     mydatabase.createThreadTable()
