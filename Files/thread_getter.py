@@ -1,5 +1,9 @@
 import time
-import csv
+
+try:
+    from csv_getter import csvSave
+except ImportError:
+    print "thread_getter.py not found or not in local directory."
 
 def threadData(list_items, now_time, subreddit_name):
     str_time = time.strftime('%m%d%y_%I%p', time.localtime())
@@ -49,13 +53,4 @@ def cleanDomain(domain_name):
         return mapped_name
     else:
         return domain_name
-
-def csvSave(list_of_list, outfile):
-    result_csv = open(outfile, "w")
-    content = csv.writer(result_csv)#, delimiter = ',', quoting = csv.QUOTE_NONE, quotechar = '', lineterminator='\r\n')
-    for item in list_of_list:
-        item = [x.encode('utf8') for x in item]
-        content.writerow(item)
-    result_csv.close()
-    return "Saved"
 

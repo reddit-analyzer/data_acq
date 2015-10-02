@@ -17,7 +17,7 @@ except ImportError:
 #Throw error if thread_getter/comment_getter library not found.
 #Thread_getter and comment_getter must be in same directory as all_getter.
 try:
-    from thread_getter import csvSave
+    from csv_getter import csvSave
 except ImportError:
     print "thread_getter.py not found or not in local directory."
 

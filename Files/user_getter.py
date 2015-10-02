@@ -6,7 +6,7 @@ except ImportError:
     print "Praw library not found."
 
 try:
-    from thread_getter import csvSave
+    from csv_getter import csvSave
 except ImportError:
     print "thread_getter.py not found or not in local directory."
 
