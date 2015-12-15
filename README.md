@@ -97,3 +97,14 @@ contains outputs queried from SQL for reading into R and/or Python
 #### output:
 contains graph outputs from R and/or Python
 
+### API:
+
+######data_loader.py 
+     '''alternative importer from csv file to database optimized for python'''
+     
+######server.py
+     '''generates a flask api for accessing selected information from the database'''
+
+######client.py
+     '''Tests the outputs from server.py'''
+
